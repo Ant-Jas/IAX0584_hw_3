@@ -1,3 +1,12 @@
+/*
+File:         time_helper.h
+Author:       Anton Jaska
+Created:      2024.05.30
+Modified:     2024.05.22
+Description:  Header file for time_helper code file. Macros, function prototypes
+              etc.
+*/
+
 #ifndef _TIME_HELPER_H
 #define _TIME_HELPER_H
 

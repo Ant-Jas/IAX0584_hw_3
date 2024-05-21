@@ -1,8 +1,8 @@
 /*
-File:         main.c
+File:         data_downloader.c
 Author:       Anton Jaska
 Created:      2024.05.20
-Modified:     2024.05.20
+Modified:     2024.05.21
 Description:  A modified curl example (https://curl.se/libcurl/c/url2file.html)
               for downloading weather data.
 */

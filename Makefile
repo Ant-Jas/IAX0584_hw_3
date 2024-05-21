@@ -7,13 +7,14 @@ SRCS := 			\
 	main.c			\
 	arg_parse.c		\
 	time_helper.c		\
-	data_downloader.c
+	data_downloader.c	\
+	xml_helper.c
 
 SRCS := $(SRCS:%=$(SRC_DIR)/%)
 OBJS := $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 # Libraries that need linking
-LIBS := curl
+LIBS := curl xml2
 
 CC := gcc
 CFLAGS := -Wall -Wextra -Wconversion -g -I include/

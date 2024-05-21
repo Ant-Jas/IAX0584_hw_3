@@ -1,3 +1,11 @@
+/*
+File:         time_helper.c
+Author:       Anton Jaska
+Created:      2024.05.20
+Modified:     2024.05.21
+Description:  Functions for saving and getting a time stamp from a file.
+*/
+
 #include <stdio.h>
 #include <time.h>
 #include <time_helper.h>
