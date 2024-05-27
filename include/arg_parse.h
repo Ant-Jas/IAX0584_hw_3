@@ -10,10 +10,12 @@ Description:  Header file for arg_parse.c. Data struct definitions, macros
 #ifndef _ARG_PARSE
 #define _ARG_PARSE
 
-//#define ERR_MSG_LEN 256
-//#define MSG_MAX_LEN 128
-//#define FILE_NAME_MAX_LEN 256
 #define ARG_MAX_NAME_LEN 64
+
+#define ARG_PARSE_ERR -1
+#define ARG_PARSE_OK 0
+
+#include <favorites_processing.h>
 
 enum argument_cases {ADD_LOC, RM_LOC, DISP_FORECAST,
                      ARG_SUPPORTED_CNT};
@@ -37,7 +39,8 @@ struct argument_description
 struct argument
 {
     bool display_forecast;
-};
+    struct favorites_wrapper locations;
+}; 
 
 
 /*
@@ -51,9 +54,10 @@ Parameters:     *opts - Struct for supported command line arguments.
                 arg_cnt - Number of arguments provided by command line.
                 **arg_vec - Array of strings from command line.
                 
-Return:         -
+Return:         ARG_PARSE_OK (0) if arguments are parsed successfully,
+                ARG_PARSE_ERR (-1) if not.
 */
-void parse_arguments(struct argument_description *opts, struct argument *args,
+int parse_arguments(struct argument_description *opts, struct argument *args,
                      int arg_cnt, char **arg_vec);
 
 
@@ -73,6 +77,7 @@ Parameters:     *args - Struct which holds the argument values that the program
                 
 Return:         The number of extra strings the argument consisted of. An extra
                 string is every string that was not the first string.
+                A negative number, if an error occurred.
 */
 int change_argument_value(struct argument *args, enum argument_cases arg,
                           char **arg_vec, int arg_vec_len, int cnt, int arg_mems);

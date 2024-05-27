@@ -15,7 +15,7 @@ Description:  Header file for main code file. Data struct definitions, macros,
 #define SECONDS_IN_HOUR 3600
 
 /*
-    Holds pointers to pared XML documents and their root nodes.
+    Holds pointers to prepared XML documents and their root nodes.
 */
 struct xml_doc_pointers
 {

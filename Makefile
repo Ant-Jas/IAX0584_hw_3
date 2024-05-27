@@ -8,7 +8,10 @@ SRCS := 			\
 	arg_parse.c		\
 	time_helper.c		\
 	data_downloader.c	\
-	xml_helper.c
+	xml_helper.c		\
+	favorites_processing.c	\
+	dynamic_strings.c	\
+	file_helper.c
 
 SRCS := $(SRCS:%=$(SRC_DIR)/%)
 OBJS := $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)

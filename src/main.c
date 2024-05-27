@@ -18,6 +18,7 @@ Description:  Main code file for homework assignment III - Local weather
 #include <time_helper.h>
 #include <data_downloader.h>
 #include <xml_helper.h>
+#include <favorites_processing.h>
 #include <main.h>
 
 int main(int argc, char **argv)
@@ -25,15 +26,17 @@ int main(int argc, char **argv)
     // Supported command line arguments
     struct argument_description options[] =
     {
-        {ADD_LOC, "--rm_location", 2},
-        {RM_LOC, "--add_location", 2},
+        {ADD_LOC, "--add_location", 2},
+        {RM_LOC, "--rm_location", 2},
         {DISP_FORECAST, "--forecast", 1}
     };
     
     // Default argument values
     struct argument arguments =
     {
-        .display_forecast = false
+        .display_forecast = false,
+        .locations.data = NULL,
+        .locations.len = 0,
     };
     
     // Check if to download new data
@@ -52,14 +55,33 @@ int main(int argc, char **argv)
     };
     prepare_xml_documents(&xml_ptrs);
     
+    // Get saved favorites
+    if (get_favorites(&arguments.locations))
+    {
+        free_xml_resources(&xml_ptrs.observations_doc, &xml_ptrs.forecasts_doc);
+        return EXIT_FAILURE;
+    }
+    
     // Parse arguments if needed
     if (argc > MIN_ARGS_TO_PARSE)
     {
-        parse_arguments(options, &arguments, argc, argv);
+        if (parse_arguments(options, &arguments, argc, argv))
+        {
+            free_xml_resources(&xml_ptrs.observations_doc, &xml_ptrs.forecasts_doc);
+            return EXIT_FAILURE;
+        }
     }
     
     // Free resources acquired by XML documents
     free_xml_resources(&xml_ptrs.observations_doc, &xml_ptrs.forecasts_doc);
+    
+    // Save favorite locations
+    save_favorites(arguments.locations);
+    
+    // Free resources acquired for storing favorite locations
+    free_favorites(&arguments.locations);
+    //free_favorites(&arguments.add_list);
+    //free_favorites(&arguments.remove_list);
     
     return EXIT_SUCCESS;
 }

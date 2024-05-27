@@ -10,19 +10,28 @@ Description:  Code for parsing command line arguments.
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
+#include <dynamic_strings.h>
 #include <arg_parse.h>
 
-void parse_arguments(struct argument_description *opts, struct argument *args,
+int parse_arguments(struct argument_description *opts, struct argument *args,
                      int arg_cnt, char **arg_vec)
 {
+    int temp;
     for (int i = 1; i < arg_cnt; i++)
     {
         for (int j = 0; j < ARG_SUPPORTED_CNT; j++)
         {
             if (strcmp(*(arg_vec + i), (opts + j)->arg_name) == 0)
             {
-                i += change_argument_value(args, j, arg_vec, arg_cnt, i,
-                                           (opts + j)->arg_mems);
+                temp = change_argument_value(args, j, arg_vec, arg_cnt, i,
+                                             (opts + j)->arg_mems);
+                if (temp < 0)
+                {
+                    return temp;
+                }
+                
+                i += temp;
+                
                 break;
             }
             if (j == (ARG_SUPPORTED_CNT - 1))
@@ -32,6 +41,8 @@ void parse_arguments(struct argument_description *opts, struct argument *args,
             }
         }
     }
+    
+    return ARG_PARSE_OK;
 }
 
 
@@ -48,11 +59,19 @@ int change_argument_value(struct argument *args, enum argument_cases event,
     switch (event)
     {
         case ADD_LOC:
-            // function
+            char *location = dynamic_string(*(arg_vec + cnt + 1));
+            if (!location)
+            {
+                return ARG_PARSE_ERR;
+            }
+            if (add_unique_location(&(args->locations), location) == FAV_ADD_ERR)
+            {
+                return ARG_PARSE_ERR;
+            }
             break;
             
         case RM_LOC:
-            // function
+            remove_location(&(args->locations), *(arg_vec + cnt + 1), 0);
             break;
             
         case DISP_FORECAST:
