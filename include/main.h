@@ -14,6 +14,14 @@ Description:  Header file for main code file. Data struct definitions, macros,
 
 #define SECONDS_IN_HOUR 3600
 
+// Default locations if favorites are missing
+#define DEFAULT_FAVORITES_CNT 3
+#define DEFAULT_FAVORITE_LOCATIONS ((const char*[]){\
+                                      "Tallinn-Harku", \
+                                      "Tartu-Tõravere", \
+                                      "Narva"\
+                                      })
+
 /*
     Holds pointers to prepared XML documents and their root nodes.
 */

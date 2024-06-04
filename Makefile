@@ -1,5 +1,4 @@
 NAME := weather_forecast.out
-#TEST_MACRO :=NO_MACRO
 
 SRC_DIR	:= src
 OBJ_DIR := obj
@@ -11,7 +10,8 @@ SRCS := 			\
 	xml_helper.c		\
 	favorites_processing.c	\
 	dynamic_strings.c	\
-	file_helper.c
+	file_helper.c		\
+	verify_and_print.c
 
 SRCS := $(SRCS:%=$(SRC_DIR)/%)
 OBJS := $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
@@ -37,17 +37,6 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	$(DIR_DUP)
 	$(CC) $(CFLAGS) -c -o $@ $<
 	$(info CREATED $@)
-
-#testing: fclean \
-#	$(OBJS)
-#	$(CC) $(OBJS) -o $(NAME) -D$(TEST_MACRO)
-#	$(info CREATED $(NAME))
-
-#$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-#	$(DIR_DUP)
-#	$(CC) $(CFLAGS) -D$(TEST_MACRO) -c -o $@ $<
-#	$(CC) $(CFLAGS) -c -o $@ $<
-#	$(info CREATED $@)
 
 clean:
 	$(RM) $(OBJS)

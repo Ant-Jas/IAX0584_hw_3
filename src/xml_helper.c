@@ -60,37 +60,3 @@ void free_xml_resources(xmlDoc **obsrv, xmlDoc **frcst)
     xmlFreeDoc(*frcst);
     *frcst = NULL;
 }
-/*
-    
-    p_node = p_node->xmlChildrenNode;
-    while (p_node != NULL)
-    {
-        if ((!xmlStrcmp(p_node->name, (const xmlChar *)"station")))
-        {
-            parseStory (doc, p_node);
-        }
-         
-        p_node = p_node->next;
-    }
-    
-    xmlFreeDoc(doc);
-    return;
-}
-
-void
-parseStory (xmlDocPtr doc, xmlNodePtr cur) {
-
-	xmlChar *key;
-	cur = cur->xmlChildrenNode;
-	while (cur != NULL) {
-	    if ((!xmlStrcmp(cur->name, (const xmlChar *)"name"))) {
-		    key = xmlNodeListGetString(doc, cur->xmlChildrenNode, 1);
-		    printf("Jaam: %s\n", key);
-		    xmlFree(key);
- 	    }
-	cur = cur->next;
-	}
-    return;
-}
-
-*/

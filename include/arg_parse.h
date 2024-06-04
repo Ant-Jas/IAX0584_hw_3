@@ -39,6 +39,8 @@ struct argument_description
 struct argument
 {
     bool display_forecast;
+    bool display_observations;
+    bool using_defaults;
     struct favorites_wrapper locations;
 }; 
 

@@ -20,6 +20,7 @@ Description:  Main code file for homework assignment III - Local weather
 #include <xml_helper.h>
 #include <favorites_processing.h>
 #include <main.h>
+#include <verify_and_print.h>
 
 int main(int argc, char **argv)
 {
@@ -35,6 +36,8 @@ int main(int argc, char **argv)
     struct argument arguments =
     {
         .display_forecast = false,
+        .display_observations = true,
+        .using_defaults = false,
         .locations.data = NULL,
         .locations.len = 0,
     };
@@ -72,16 +75,42 @@ int main(int argc, char **argv)
         }
     }
     
+    // Check if all favorite locations exist and print them, if necessary
+    if (!arguments.locations.data)
+    {
+        arguments.locations.data = (char **)DEFAULT_FAVORITE_LOCATIONS;
+        arguments.using_defaults = true;
+        arguments.locations.len = DEFAULT_FAVORITES_CNT;
+    }
+    verify_and_print_observations(xml_ptrs, &arguments.locations, arguments);
+    
+    // Print forecast
+    if (arguments.display_forecast)
+    {
+        print_forecast(xml_ptrs);
+    }
+    
+    // Data source
+    if (arguments.display_observations || arguments.display_forecast)
+    {
+        puts("\nObservation and forecast data is provided by Keskkonnaagentuur "
+             "(ilmateenistus.ee).");
+    }
+    
     // Free resources acquired by XML documents
     free_xml_resources(&xml_ptrs.observations_doc, &xml_ptrs.forecasts_doc);
     
     // Save favorite locations
-    save_favorites(arguments.locations);
+    if (!arguments.using_defaults)
+    {
+        save_favorites(arguments.locations);
+    }
     
     // Free resources acquired for storing favorite locations
-    free_favorites(&arguments.locations);
-    //free_favorites(&arguments.add_list);
-    //free_favorites(&arguments.remove_list);
+    if (!arguments.using_defaults)
+    {
+        free_favorites(&arguments.locations);
+    }
     
     return EXIT_SUCCESS;
 }

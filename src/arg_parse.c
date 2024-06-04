@@ -68,14 +68,17 @@ int change_argument_value(struct argument *args, enum argument_cases event,
             {
                 return ARG_PARSE_ERR;
             }
+            args->display_observations = false;
             break;
             
         case RM_LOC:
             remove_location(&(args->locations), *(arg_vec + cnt + 1), 0);
+            args->display_observations = false;
             break;
             
         case DISP_FORECAST:
             args->display_forecast = true;
+            args->display_observations = false;
             break;
             
         default:

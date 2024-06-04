@@ -35,12 +35,14 @@ CURL *curl_setup(void)
     int return_val;
     
     // Switch on full protocol/debug output while testing
+    /*
     return_val = curl_easy_setopt(curl_handle, CURLOPT_VERBOSE, 1L);
     if (return_val != CURLE_OK)
     {
         curl_option_fail_handler(return_val, &curl_handle);
         return NULL;
     }
+    */
     
     // Disable progress meter, set to 0L to enable it
     return_val = curl_easy_setopt(curl_handle, CURLOPT_NOPROGRESS, 1L);
