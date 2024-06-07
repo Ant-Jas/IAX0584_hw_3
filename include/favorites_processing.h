@@ -33,8 +33,9 @@ Description:    Dynamically expands an array of pointers to strings. Each string
                 contains a location name that the user has previously added as a
                 favorite. The locations are read from FAVORITES_FILE_NAME.
                 
-Parameters:     *wrp - A wrapper that contains a pointer to the beginning of the
-                pointer array and the the length of the array.
+Parameters:     *wrp - A wrapper that contains a pointer to the beginning of a
+                pointer array and the the length of the array. The array is for
+                strings containing location names.
                 
 Return:         FAV_READ_OK if no errors occurred while getting favorites.
                 FAV_READ_ERR if some error occurred.
@@ -47,8 +48,9 @@ Description:    Frees all of the dynamically allocated strings in the array.
                 Also frees the dynamically allocated array, sets it as a NULL
                 pointer and sets the arrays length to be 0.
                 
-Parameters:     *wrp - A wrapper that contains a pointer to the beginning of the
-                pointer array and the the length of the array.
+Parameters:     *wrp - A wrapper that contains a pointer to the beginning of a
+                pointer array and the the length of the array. The array is for
+                strings containing location names.
                 
 Return:         -
 */
@@ -62,8 +64,9 @@ Description:    Adds a location to a dynamically allocated favorites array.
                 added to that spot. If no empty spot exists the array is
                 dynamically expanded.
                 
-Parameters:     *wrp - A wrapper that contains a pointer to the beginning of the
-                pointer array and the the length of the array.
+Parameters:     *wrp - A wrapper that contains a pointer to the beginning of a
+                pointer array and the the length of the array. The array is for
+                strings containing location names.
                 *loc - A pointer to a string that the user wishes to add as a
                 new favorite.
                 
@@ -82,8 +85,9 @@ Description:    Removes a location from the favorites array. If the array index
                 array. The dynamically allocated string of the location is freed
                 and its pointer in the array is set as a NULL pointer.
                 
-Parameters:     *wrp - A wrapper that contains a pointer to the beginning of the
-                pointer array and the the length of the array.
+Parameters:     *wrp - A wrapper that contains a pointer to the beginning of a
+                pointer array and the the length of the array. The array is for
+                strings containing location names.
                 *loc - A pointer to a string that the user wishes to add as a
                 new favorite.
                 idx - If known, the array index of the element being removed.
@@ -97,8 +101,9 @@ void remove_location(struct favorites_wrapper *wrp, char *loc, int idx);
 Description:    Expands the dynamic favorite locations array by one. Used by
                 get_favorites and add_unique_location.
                 
-Parameters:     *wrp - A wrapper that contains a pointer to the beginning of the
-                pointer array and the the length of the array.
+Parameters:     *wrp - A wrapper that contains a pointer to the beginning of a
+                pointer array and the the length of the array. The array is for
+                strings containing location names.
                 
 Return:         Pointer to the expanded array.
                 A NULL pointer if realloc failed.
@@ -110,8 +115,9 @@ char **expand_list(struct favorites_wrapper *wrp);
 Description:    Saves all the locations in the favorite locations array to
                 FAVORITES_FILE_NAME.
                 
-Parameters:     wrp - A wrapper that contains a pointer to the beginning of the
-                pointer array and the the length of the array.
+Parameters:     wrp - A wrapper that contains a pointer to the beginning of a
+                pointer array and the the length of the array. The array is for
+                strings containing location names.
                 
 Return:         FAV_WRITE_OK - Locations saved successfully.
                 FAV_WRITE_ERR - An error occurred while saving. Changes will be

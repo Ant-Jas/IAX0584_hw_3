@@ -1,7 +1,7 @@
 /*
 File:         data_downloader.h
 Author:       Anton Jaska
-Created:      2024.00.00
+Created:      2024.05.20
 Modified:     2024.05.20
 Description:  Header file for data_downloader code file. Macros, function
               prototypes etc.

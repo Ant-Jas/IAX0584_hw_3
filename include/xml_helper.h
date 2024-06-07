@@ -1,8 +1,8 @@
 /*
 File:         xml_helper.h
 Author:       Anton Jaska
-Created:      2024.12.00
-Modified:     2024.04.20
+Created:      2024.05.20
+Modified:     2024.05.20
 Description:  Header file for xml_helper.c. Macros, function prototypes etc.
               Based on libxml2 sample: https://gitlab.gnome.org/GNOME/libxml2/-/wikis/Tutorial
 */

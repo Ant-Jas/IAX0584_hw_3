@@ -2,7 +2,7 @@
 File:         arg_parse.c
 Author:       Anton Jaska
 Created:      2024.00.00
-Modified:     2024.05.20
+Modified:     2024.06.07
 Description:  Code for parsing command line arguments.
 */
 

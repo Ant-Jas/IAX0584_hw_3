@@ -2,7 +2,7 @@
 File:         verify_and_print.c
 Author:       Anton Jaska
 Created:      2024.05.27
-Modified:     2024.05.27
+Modified:     2024.06.07
 Description:  Functions for verifying if locations added by user are correct.
               Also functions for printing observation and forecast info.
 */
@@ -60,7 +60,8 @@ void verify_and_print_observations(struct xml_doc_pointers xml_wrp,
             
             p_temp = p_station->xmlChildrenNode;
             p_name = find_node_by_name(&p_temp, *(OBS_NODE_NAME + ST_NAME));
-            if (!p_name)  // Station has no node <name>
+            // Station has no node <name>
+            if (!p_name)
             {
                 fprintf(stderr, "No child node with name \"%s\" exists for "
                                 "parent node \"%s\".\n",
@@ -128,6 +129,7 @@ void print_forecast(struct xml_doc_pointers xml_wrp)
                     FOR_NODE_NAME_NIGHT);
         }
         
+        // Get night temperatures
         p_night = p_night->xmlChildrenNode;
         while (p_night)
         {
@@ -163,6 +165,7 @@ void print_forecast(struct xml_doc_pointers xml_wrp)
                     FOR_NODE_NAME_DAY);
         }
         
+        // Get day temperatures
         p_day = p_day->xmlChildrenNode;
         while (p_day)
         {
@@ -194,6 +197,7 @@ void print_forecast(struct xml_doc_pointers xml_wrp)
                 p_str ? p_str : (xmlChar *)"Date attribute not found");
         xmlFree(*(p_data + FR_DATE));
         *(p_data + FR_DATE) = NULL;
+        
         for (int i = FR_NIGHT_TEMP_MIN; i < FR_DATA_PNTS_CNT; i++)
         {
             printf("\t%-28s: %s\n", *(FOR_NODE_NAME_PRINT + i),

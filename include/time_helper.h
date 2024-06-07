@@ -1,8 +1,8 @@
 /*
 File:         time_helper.h
 Author:       Anton Jaska
-Created:      2024.05.30
-Modified:     2024.05.22
+Created:      2024.05.20
+Modified:     2024.05.30
 Description:  Header file for time_helper code file. Macros, function prototypes
               etc.
 */
@@ -12,7 +12,9 @@ Description:  Header file for time_helper code file. Macros, function prototypes
 
 #define TIME_STAMP_FILE "last_time_stamp.txt"
 
-#define ERR_GETTING_TIME -1.0f
+#define ERR_GETTING_TIME -1
+
+#define TIME_BUF_LEN 32
 
 
 /*
@@ -26,14 +28,14 @@ Parameter:      -
 Return:         UNIX time contained in TIME_STAMP_FILE.
                 In case of error, a negative value.
 */
-double get_saved_time(void);
+time_t get_saved_time(void);
 
 
 /*
-Description:    Tries to overwrite TIME_STAMP_FILE with the current UNIX time
-                stamp. The time stamp is saved as a double in an effort to
-                improve portability (some precision might be lost). Displays an
-                error message, if unable to TIME_STAMP_FILE.
+Description:    Tries to overwrite TIME_STAMP_FILE with the current local UNIX
+                time stamp. The time stamp is saved as string with format
+                "YYYY-MM-DD HH:MM:SS". Displays an error message, if unable to
+                open TIME_STAMP_FILE.
 
 Parameter:      -
 

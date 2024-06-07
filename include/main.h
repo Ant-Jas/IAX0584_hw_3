@@ -1,8 +1,8 @@
 /*
 File:         main.h
 Author:       Anton Jaska
-Created:      2024.00.00
-Modified:     2024.05.21
+Created:      2024.05.20
+Modified:     2024.06.07
 Description:  Header file for main code file. Data struct definitions, macros,
               function prototypes etc.
 */

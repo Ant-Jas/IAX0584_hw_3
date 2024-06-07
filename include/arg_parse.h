@@ -1,8 +1,8 @@
 /*
 File:         arg_parse.h
 Author:       Anton Jaska
-Created:      2024.12.00
-Modified:     2024.04.20
+Created:      2024.00.00
+Modified:     2024.06.07
 Description:  Header file for arg_parse.c. Data struct definitions, macros
               etc.
 */

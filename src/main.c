@@ -2,7 +2,7 @@
 File:         main.c
 Author:       Anton Jaska
 Created:      2024.05.20
-Modified:     2024.05.21
+Modified:     2024.06.07
 Description:  Main code file for homework assignment III - Local weather
               forecast.
 */
@@ -43,7 +43,7 @@ int main(int argc, char **argv)
     };
     
     // Check if to download new data
-    if ((double)time(NULL) - get_saved_time() > SECONDS_IN_HOUR)
+    if (time(NULL) - get_saved_time() > SECONDS_IN_HOUR)
     {
         download_and_check_for_errors();
     }

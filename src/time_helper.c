@@ -7,10 +7,16 @@ Description:  Functions for saving and getting a time stamp from a file.
 */
 
 #include <stdio.h>
+#include <stdlib.h>
+
+#define __USE_XOPEN
+#define _GNU_SOURCE
+
 #include <time.h>
+#include <dynamic_strings.h>
 #include <time_helper.h>
 
-double get_saved_time(void)
+time_t get_saved_time(void)
 {
     FILE *fp = fopen(TIME_STAMP_FILE, "r");
     if (!fp)
@@ -20,17 +26,30 @@ double get_saved_time(void)
         return ERR_GETTING_TIME;
     }
     
-    double time;  // for portability
-    if (fscanf(fp, "%lf", &time) != 1)
+    char *buf = get_dynamic_input_string(fp);
+    if (!buf)
     {
-        fprintf(stderr, "File \"%s\" does not contain a time value.\n",
-                        TIME_STAMP_FILE);
-        fclose(fp);
+        return ERR_GETTING_TIME;
+    }
+    fclose (fp);
+    
+    struct tm time_st = {0};
+    if(!strptime(buf, "%F %T", &time_st))
+    {
+        free(buf);
+        return ERR_GETTING_TIME;
+    }
+    free(buf);
+    
+    time_t t = mktime(&time_st);
+    if (t == -1)
+    {
+        fprintf(stderr, "Unable to represent string in \"%s\" as a time "
+                        "value.\n", TIME_STAMP_FILE);
         return ERR_GETTING_TIME;
     }
     
-    fclose(fp);
-    return time;
+    return t;
 }
 
 void save_current_time(void)
@@ -43,6 +62,11 @@ void save_current_time(void)
         return;
     }
     
-    fprintf(fp, "%lf\n", difftime(time(NULL), (time_t)0)); // for portability
+    time_t t = time(NULL);
+    struct tm *p_time_st = localtime(&t);
+    char buf[TIME_BUF_LEN];
+    strftime(buf, TIME_BUF_LEN, "%F %T", p_time_st);
+    fprintf(fp, "%s\n", buf);
+    
     fclose(fp);
 }
