@@ -1,9 +1,9 @@
 # IAX0584_hw_3
-(IAX0584) Programmeerimine II homework 3 -  Local weather forecast
+(IAX0584) Programmeerimine II homework 3 - Local weather forecast  
 Data provided by Keskkonnaagentuur (ilmateenistus.ee).
 
 # Dependencies
-libcurl
+libcurl,
 libxml2
 
 # Compiling
